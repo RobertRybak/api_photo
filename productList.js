@@ -24,21 +24,34 @@ async function getData() {
             if (item.typeId === listItem.typeId) {
               const type = item.typeName;
 
-              const newProduct = document.importNode(listTemplate.content, true);
-              const listTitle = newProduct.querySelector('.list__id');
-              const listBody = newProduct.querySelector('.list__product');
-              const listFormat = newProduct.querySelector('.list__format');
-              const listTyp = newProduct.querySelector('.list__typ');
+              fetch('https://www.empikfoto.pl/product/papers')
+                .then(res => res.json())
+                .then(paper => {
+                  const papersList = paper.papers;
 
-              listTitle.innerText = productId;
-              listBody.innerText = product;
-              listFormat.innerText = format
-              listTyp.innerText = type;
+                  papersList.forEach(item => {
 
-              listSection.appendChild(newProduct);
+                    if (item.id === listItem.paperId) {
+                      const paper = item.name;
 
+                      const newProduct = document.importNode(listTemplate.content, true);
+                      const listTitle = newProduct.querySelector('.list__id');
+                      const listBody = newProduct.querySelector('.list__product');
+                      const listFormat = newProduct.querySelector('.list__format');
+                      const listTyp = newProduct.querySelector('.list__typ');
+                      const listPaper = newProduct.querySelector('.list__paper');
+
+                      listTitle.innerText = productId;
+                      listBody.innerText = product;
+                      listFormat.innerText = format
+                      listTyp.innerText = type;
+                      listPaper.innerText = paper;
+
+                      listSection.appendChild(newProduct);
+                    }
+                  })
+                })
             }
-
           }
         })
       })
