@@ -10,7 +10,26 @@
 </head>
 
 <body>
+  <h1>Empik Photo Data </h1>
+  <table>
+    <thead>
+      <th>Identyfikator</th>
+      <th>Produkt</th>
+      <th>Typ</th>
+      <th>Format</th>
+      <th>Papier</th>
+    </thead>
+    <tbody id="lists"></tbody>
+  </table>
 
+  <template id="list-template">
+    <tr class="list">
+      <td class="list__id"></td>
+      <td class="list__product"></td>
+      <td class="list__typ"></td>
+      <td class="list__format"></td>
+      <td class="list__paper"></td>
+  </template>
 
   <script src="productList.js"></script>
 </body>
