@@ -12,15 +12,35 @@ async function getData() {
     const productId = listItem.productId;
     const product = listItem.product;
 
-    const newProduct = document.importNode(listTemplate.content, true);
-    const listTitle = newProduct.querySelector('.list__id');
-    const listBody = newProduct.querySelector('.list__product');
+    fetch('https://www.empikfoto.pl/product/formats')
+      .then(res => res.json())
+      .then(format => {
+        const formatsList = format.formats;
+        formatsList.forEach(item => {
 
-    listTitle.innerText = productId;
-    listBody.innerText = product;
+          if (item.id === listItem.formatId) {
+            const format = item.name;
 
-    listSection.appendChild(newProduct);
+            if (item.typeId === listItem.typeId) {
+              const type = item.typeName;
 
+              const newProduct = document.importNode(listTemplate.content, true);
+              const listTitle = newProduct.querySelector('.list__id');
+              const listBody = newProduct.querySelector('.list__product');
+              const listFormat = newProduct.querySelector('.list__format');
+              const listTyp = newProduct.querySelector('.list__typ');
+
+              listTitle.innerText = productId;
+              listBody.innerText = product;
+              listFormat.innerText = format
+              listTyp.innerText = type;
+
+              listSection.appendChild(newProduct);
+
+            }
+
+          }
+        })
+      })
   })
-
 }
