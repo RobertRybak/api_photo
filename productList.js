@@ -1,12 +1,15 @@
 const listSection = document.querySelector('#lists');
 const listTemplate = document.querySelector('#list-template');
 
-getData();
+getData()
+  .catch(err => console.log(err));
 
 async function getData() {
   const listStream = await fetch('https://www.empikfoto.pl/product/list');
   const lists = await listStream.json();
   const productLists = lists.products;
+
+  // throw 'Get Data Error'
 
   productLists.forEach(listItem => {
     const productId = listItem.productId;
@@ -17,6 +20,8 @@ async function getData() {
       .then(format => {
         const formatsList = format.formats;
         formatsList.forEach(item => {
+
+          //throw 'Get Format Error'
 
           if (item.id === listItem.formatId) {
             const format = item.name;
@@ -30,6 +35,8 @@ async function getData() {
                   const papersList = paper.papers;
 
                   papersList.forEach(item => {
+
+                    // throw 'Get Papers Error'
 
                     if (item.id === listItem.paperId) {
                       const paper = item.name;
@@ -51,9 +58,11 @@ async function getData() {
                     }
                   })
                 })
+                .catch(err => console.log(err));
             }
           }
         })
       })
+      .catch(err => console.log(err));
   })
 }
